@@ -16,9 +16,22 @@ namespace UserAdmin
             ClearInputs();
         }
 
-        private Usuario RecuperarInformacao()
+        private Usuario RecuperarInformacao_Cadastrar()
         {
             var usuario = new Usuario();
+            usuario.Nome = txtNome.Text;
+            usuario.Cpf = txtCpf.Text;
+            usuario.Email = txtEmail.Text;
+            usuario.Telefone = txtTelefone.Text;
+            usuario.FotoUsuario = imagemByte;
+
+            return usuario;
+
+        }
+        private Usuario RecuperarInformacao_Delete_Alterar()
+        {
+            var usuario = new Usuario();
+            usuario.Id = int.Parse(txtIdListar.Text);
             usuario.Nome = txtNome.Text;
             usuario.Cpf = txtCpf.Text;
             usuario.Email = txtEmail.Text;
@@ -52,9 +65,18 @@ namespace UserAdmin
             btnCancelar.Enabled = true;
         }
 
-        public bool ValidationNull()
+        public bool ValidationNullCreate()
         {
             if (txtNome.Text == "" || txtCpf.Text == "" || txtEmail.Text == "" || txtTelefone.Text == "")
+            {
+                MessageBox.Show("Possue campos em branco, insira os dados da forma correta!");
+                return false;
+            }
+            return true;
+        }
+        public bool ValidationNull_Delete_Alterar()
+        {
+            if (txtNome.Text == "" || txtCpf.Text == "" || txtEmail.Text == "" || txtTelefone.Text == "" || txtIdListar.Text == "")
             {
                 MessageBox.Show("Possue campos em branco, insira os dados da forma correta!");
                 return false;
@@ -78,37 +100,42 @@ namespace UserAdmin
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            if (Validation())
+            if (ValidationNullCreate())
             {
-                if (_userService.Cadastrar(RecuperarInformacao()))
+                if (_userService.Cadastrar(RecuperarInformacao_Cadastrar()))
+                {
                     MessageBox.Show("Usuário criado com sucesso!");
-                else
-                    MessageBox.Show("Usuário não foi criado!");
-
-                atualizarGrid();
-                ClearInputs();
+                    atualizarGrid();
+                    ClearInputs();
+                }
             }
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            if (ValidationNull())
+            if (ValidationNull_Delete_Alterar())
             {
 
-                if (_userService.Alterar(RecuperarInformacao()))
+                if (_userService.Alterar(RecuperarInformacao_Delete_Alterar()))
+                {
                     MessageBox.Show("Usuario Alterdo com sucesso!");
-                else
-                    MessageBox.Show("Usuario não foi alterdo!");
-                atualizarGrid();
-                ClearInputs();
+                    atualizarGrid();
+                    ClearInputs();
+                }
             }
         }
 
         private void btnDeletar_Click(object sender, EventArgs e)
         {
-            _userService.Deletar(RecuperarInformacao());
-            atualizarGrid();
-            ClearInputs();
+            if (ValidationNull_Delete_Alterar())
+            {
+                if (_userService.Deletar(RecuperarInformacao_Delete_Alterar()))
+                {
+                    MessageBox.Show("Usuario Deletado com sucesso!");
+                    atualizarGrid();
+                    ClearInputs();
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -119,8 +146,10 @@ namespace UserAdmin
         private void btnSelecionar_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 1;
-
-            var id = txtIdListar.Text;
+            if (txtIdListar.Text != "")
+            {
+                var id = int.Parse(txtIdListar.Text);
+            }
         }
 
         private void Selecionar(object sender, DataGridViewCellMouseEventArgs e)
@@ -130,6 +159,7 @@ namespace UserAdmin
             dgvUsuario.ClearSelection();
             if (indice >= 0)
             {
+                txtIdListar.Text = dgvUsuario.Rows[indice].Cells[0].Value.ToString();
                 txtNome.Text = dgvUsuario.Rows[indice].Cells[1].Value.ToString();
                 txtEmail.Text = dgvUsuario.Rows[indice].Cells[2].Value.ToString();
                 txtCpf.Text = dgvUsuario.Rows[indice].Cells[3].Value.ToString();

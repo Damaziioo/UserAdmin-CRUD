@@ -9,5 +9,6 @@ namespace UserAdmin.UserAdmin.BLL.Interfaces
         DataSet Listar();
         bool Deletar(Usuario usuario);
         bool Alterar(Usuario usuario);
+        
     }
 }

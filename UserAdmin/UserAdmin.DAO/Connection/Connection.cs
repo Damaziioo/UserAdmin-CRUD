@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
+using UserAdmin.UserAdmin.DAO.Entities;
 
 namespace UserAdmin.UserAdmin.DAO.Connection
 {
@@ -73,5 +74,73 @@ namespace UserAdmin.UserAdmin.DAO.Connection
 
 
         }
+        public bool Select_CPF_Users(SqlCommand command, string cpf)
+        {
+         
+            command.Connection = ConnectionDb();
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<string> list = new List<string>();
+            while (reader.Read())
+            {
+                list.Add(reader.GetString(0));
+            }
+            foreach (var item in list)
+            {
+                if (item == cpf)
+                {
+                    MessageBox.Show($"Já existe um usuário com este CPF: {cpf}");
+                    connection.Close();
+                    return false;
+                }
+            }
+            connection.Close();
+            return true;
+        }
+        public bool Select_Email_Users(SqlCommand command, string email)
+        {
+            command.Connection = ConnectionDb();
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<string> list = new List<string>();
+            while (reader.Read())
+            {
+                list.Add(reader.GetString(0));
+            }
+            foreach (var item in list)
+            {
+                if (item == email)
+                {
+                    MessageBox.Show($"Já existe um usuário com este Email: {email}");
+                    connection.Close();
+                    return false;
+                }
+            }
+            connection.Close();
+            return true;
+        }
+        public bool Select_Telefone_Users(SqlCommand command, string telefone)
+        {
+            command.Connection = ConnectionDb();
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<string> list = new List<string>();
+            while (reader.Read())
+            {
+                list.Add(reader.GetString(0));
+            }
+            foreach (var item in list)
+            {
+                if (item == telefone)
+                {
+                    MessageBox.Show($"Já existe um usuário com este Telefone: {telefone}");
+                    connection.Close();
+                    return false;
+                }
+            }
+            connection.Close();
+            return true;
+        }
+
     }
 }
