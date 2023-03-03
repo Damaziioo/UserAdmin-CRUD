@@ -41,15 +41,25 @@ namespace UserAdmin
 
         public void ClearInputs()
         {
-            txtNome.Text = " ";
-            txtEmail.Text = " ";
-            txtCpf.Text = " ";
-            txtTelefone.Text = " ";
+            txtNome.Text = null;
+            txtEmail.Text = null;
+            txtCpf.Text = null;
+            txtTelefone.Text = null;
 
             btnCadastrar.Enabled = true;
             btnAlterar.Enabled = false;
             btnDeletar.Enabled = false;
             btnCancelar.Enabled = true;
+        }
+
+        public bool ValidationNull()
+        {
+            if (txtNome.Text == "" || txtCpf.Text == "" || txtEmail.Text == "" || txtTelefone.Text == "")
+            {
+                MessageBox.Show("Possue campos em branco, insira os dados da forma correta!");
+                return false;
+            }
+            return true;
         }
         private void btnExaminar_Click(object sender, EventArgs e)
         {
@@ -68,24 +78,30 @@ namespace UserAdmin
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            if (_userService.Cadastrar(RecuperarInformacao()))
-                MessageBox.Show("Usuário criado com sucesso!");
-            else
-                MessageBox.Show("Usuário não foi criado!");
+            if (Validation())
+            {
+                if (_userService.Cadastrar(RecuperarInformacao()))
+                    MessageBox.Show("Usuário criado com sucesso!");
+                else
+                    MessageBox.Show("Usuário não foi criado!");
 
-            atualizarGrid();
-            ClearInputs();
+                atualizarGrid();
+                ClearInputs();
+            }
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            if (_userService.Alterar(RecuperarInformacao()))
-                MessageBox.Show("Usuario Alterdo com sucesso!");
-            else
-                MessageBox.Show("Usuario não foi alterdo!");
+            if (ValidationNull())
+            {
 
-            atualizarGrid();
-            ClearInputs();
+                if (_userService.Alterar(RecuperarInformacao()))
+                    MessageBox.Show("Usuario Alterdo com sucesso!");
+                else
+                    MessageBox.Show("Usuario não foi alterdo!");
+                atualizarGrid();
+                ClearInputs();
+            }
         }
 
         private void btnDeletar_Click(object sender, EventArgs e)
@@ -97,7 +113,7 @@ namespace UserAdmin
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            ClearInputs();  
+            ClearInputs();
         }
 
         private void btnSelecionar_Click(object sender, EventArgs e)
