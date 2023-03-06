@@ -74,7 +74,7 @@
             this.tabListar.Controls.Add(this.label1);
             this.tabListar.Location = new System.Drawing.Point(4, 24);
             this.tabListar.Name = "tabListar";
-            this.tabListar.Padding = new System.Windows.Forms.Padding(3);
+            this.tabListar.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabListar.Size = new System.Drawing.Size(768, 398);
             this.tabListar.TabIndex = 0;
             this.tabListar.Text = "Listar";
@@ -97,6 +97,7 @@
             this.dgvUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsuario.Location = new System.Drawing.Point(18, 50);
             this.dgvUsuario.Name = "dgvUsuario";
+            this.dgvUsuario.RowHeadersWidth = 51;
             this.dgvUsuario.RowTemplate.Height = 25;
             this.dgvUsuario.Size = new System.Drawing.Size(724, 297);
             this.dgvUsuario.TabIndex = 2;
@@ -114,9 +115,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(600, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 15);
+            this.label1.Size = new System.Drawing.Size(82, 15);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Pesquisar:";
+            this.label1.Text = "Pesquisar (ID):";
             // 
             // tabCadastrar
             // 
@@ -136,7 +137,7 @@
             this.tabCadastrar.Controls.Add(this.picFoto);
             this.tabCadastrar.Location = new System.Drawing.Point(4, 24);
             this.tabCadastrar.Name = "tabCadastrar";
-            this.tabCadastrar.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCadastrar.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabCadastrar.Size = new System.Drawing.Size(768, 398);
             this.tabCadastrar.TabIndex = 1;
             this.tabCadastrar.Text = "Cadastrar/Alterar";

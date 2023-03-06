@@ -15,24 +15,6 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             return connection;
 
         }
-        public bool CrudConnectionDb(string stringCommad)
-        {
-            try
-            {
-                var command = new SqlCommand();
-                command.CommandText = stringCommad;
-                command.Connection = ConnectionDb();
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-                return true;
-            }
-            catch
-            {
-
-                return false;
-            }
-        }
         public bool CrudConnectionDb(SqlCommand command)
         {
             try
@@ -74,9 +56,29 @@ namespace UserAdmin.UserAdmin.DAO.Connection
 
 
         }
+        public Usuario Select_User_Info(SqlCommand command)
+        {
+
+            Usuario usuario = new Usuario();
+            command.Connection = ConnectionDb();
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            List<string> list = new List<string>();
+            while (reader.Read())
+            {
+                usuario.Nome = reader.GetString(1);
+                usuario.Email = reader.GetString(2);
+                usuario.Cpf = reader.GetString(3);
+                usuario.Telefone = reader.GetString(4);
+                //usuario.FotoUsuario = reader.GetString(4);
+            }
+            connection.Close();
+            return usuario;
+
+        }
         public bool Select_CPF_Users(SqlCommand command, string cpf)
         {
-         
+
             command.Connection = ConnectionDb();
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
@@ -96,6 +98,16 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             }
             connection.Close();
             return true;
+        }
+       
+        public byte[] Select_Foto_Users(SqlCommand command)
+        {
+            command.Connection = ConnectionDb();
+            connection.Open();
+            byte[] imagem = (byte[])command.ExecuteScalar();
+            connection.Close();
+            return imagem;
+
         }
         public bool Select_Email_Users(SqlCommand command, string email)
         {
@@ -141,6 +153,7 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             connection.Close();
             return true;
         }
+       
 
     }
 }

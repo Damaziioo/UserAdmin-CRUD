@@ -58,6 +58,7 @@ namespace UserAdmin
             txtEmail.Text = null;
             txtCpf.Text = null;
             txtTelefone.Text = null;
+            picFoto.Image = null;
 
             btnCadastrar.Enabled = true;
             btnAlterar.Enabled = false;
@@ -148,18 +149,24 @@ namespace UserAdmin
             tabControl1.SelectedIndex = 1;
             if (txtIdListar.Text != "")
             {
-                var id = int.Parse(txtIdListar.Text);
+                var idSelecionar = int.Parse(txtIdListar.Text);
+
+                var usuario = _userService.Select_User_Info(idSelecionar);
+                txtNome.Text = usuario.Nome;
+                txtTelefone.Text = usuario.Telefone;
+                txtCpf.Text = usuario.Cpf;
+                txtEmail.Text = usuario.Email;
             }
         }
 
         private void Selecionar(object sender, DataGridViewCellMouseEventArgs e)
         {
             int indice = e.RowIndex;
-
             dgvUsuario.ClearSelection();
             if (indice >= 0)
             {
                 txtIdListar.Text = dgvUsuario.Rows[indice].Cells[0].Value.ToString();
+                //picFoto.Image = _userService.CapthFoto(int.Parse(dgvUsuario.Rows[indice].Cells[0].Value.ToString()));
                 txtNome.Text = dgvUsuario.Rows[indice].Cells[1].Value.ToString();
                 txtEmail.Text = dgvUsuario.Rows[indice].Cells[2].Value.ToString();
                 txtCpf.Text = dgvUsuario.Rows[indice].Cells[3].Value.ToString();
@@ -172,5 +179,6 @@ namespace UserAdmin
             }
         }
 
+        
     }
 }
