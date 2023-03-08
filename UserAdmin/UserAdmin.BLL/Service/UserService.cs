@@ -21,12 +21,12 @@ namespace UserAdmin.UserAdmin.BLL.Service
             if (TryParse_CPF_Telefone(usuario.Cpf, usuario.Telefone) && ValidationCPF(usuario) && ValidationEmail(usuario) && ValidationTelefone(usuario))
             {
 
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO UsersCrud ([nome],[email],[cpf],[telefone],[foto]) VALUES(@nome,@email,@cpf,@telefone,'@foto')");
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO UsersCrud ([nome],[email],[cpf],[telefone],[foto]) VALUES(@nome,@email,@cpf,@telefone,@foto)");
                 sqlCommand.Parameters.Add("@nome", SqlDbType.VarChar).Value = usuario.Nome;
                 sqlCommand.Parameters.Add("@email", SqlDbType.VarChar).Value = usuario.Email;
                 sqlCommand.Parameters.Add("@cpf", SqlDbType.VarChar).Value = usuario.Cpf;
                 sqlCommand.Parameters.Add("@telefone", SqlDbType.VarChar).Value = usuario.Telefone;
-                //sqlCommand.Parameters.Add("@foto", SqlDbType.Image).Value = usuario.FotoUsuario;
+                sqlCommand.Parameters.Add("@foto", SqlDbType.Image).Value = usuario.FotoUsuario;
                 return connection.CrudConnectionDb(sqlCommand);
             }
             return false;
@@ -54,13 +54,13 @@ namespace UserAdmin.UserAdmin.BLL.Service
                 if (!ValidationUser_Alteracao(usuario))
                 {
 
-                    SqlCommand sqlCommand = new SqlCommand("UPDATE UsersCrud SET nome = @nome, email = @email, cpf = @cpf, telefone = @telefone, foto = 'foto' WHERE id = @id");
+                    SqlCommand sqlCommand = new SqlCommand("UPDATE UsersCrud SET nome = @nome, email = @email, cpf = @cpf, telefone = @telefone, foto = @foto WHERE id = @id");
                     sqlCommand.Parameters.Add("@id", SqlDbType.VarChar).Value = usuario.Id;
                     sqlCommand.Parameters.Add("@nome", SqlDbType.VarChar).Value = usuario.Nome;
                     sqlCommand.Parameters.Add("@email", SqlDbType.VarChar).Value = usuario.Email;
                     sqlCommand.Parameters.Add("@cpf", SqlDbType.VarChar).Value = usuario.Cpf;
                     sqlCommand.Parameters.Add("@telefone", SqlDbType.VarChar).Value = usuario.Telefone;
-                    //sqlCommand.Parameters.Add("@foto", SqlDbType.Image).Value=usuario.FotoUsuario;
+                    sqlCommand.Parameters.Add("@foto", SqlDbType.Image).Value=usuario.FotoUsuario;
                     return connection.CrudConnectionDb(sqlCommand);
                 }
             }
@@ -69,8 +69,8 @@ namespace UserAdmin.UserAdmin.BLL.Service
         public Usuario Select_User_Info(int id)
         {
             SqlCommand sqlCommand = new SqlCommand($"SELECT * FROM UsersCrud WHERE id = {id}");
-            //sqlCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
             var usuario = connection.Select_User_Info(sqlCommand);
+
 
             return usuario;
         }
@@ -185,7 +185,7 @@ namespace UserAdmin.UserAdmin.BLL.Service
                 MessageBox.Show("O CPF teve conter apaenas números!");
                 return false;
             }
-            
+
             if (!long.TryParse(telefone, out number))
             {
                 MessageBox.Show("O Telefone teve conter apaenas números!");
