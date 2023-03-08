@@ -61,7 +61,7 @@ namespace UserAdmin
             txtEmail.Text = null;
             txtCpf.Text = null;
             txtTelefone.Text = null;
-            picFoto.Image = null;
+            picFoto.Image = Image.FromFile(@"C:\Users\lucas\source\repos\UserAdmin\UserAdmin\Images\imagemDefaultJPG.jpg");
 
             btnCadastrar.Enabled = true;
             btnAlterar.Enabled = false;
@@ -200,6 +200,29 @@ namespace UserAdmin
 
         }
 
+        private void picFoto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog selecImagem = new OpenFileDialog();
+            selecImagem.Filter = "JPEG|*.JPG|PNG|*.png";
+            selecImagem.Title = "Selecionar Imagem";
 
+            if (selecImagem.ShowDialog() == DialogResult.OK)
+            {
+                var path = selecImagem.FileName;
+                FileInfo fileInfo = new FileInfo(path);
+                var extension = fileInfo.Extension;
+                picFoto.Image = Image.FromStream(selecImagem.OpenFile());
+                MemoryStream memoryStream = new MemoryStream();
+                if (extension.Equals(".png"))
+                {
+                    picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                }
+                else
+                {
+                    picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+                imagemByte = memoryStream.ToArray();
+            }
+        }
     }
 }
