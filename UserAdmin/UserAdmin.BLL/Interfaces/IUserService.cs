@@ -9,7 +9,6 @@ namespace UserAdmin.UserAdmin.BLL.Interfaces
         DataSet Listar();
         bool Deletar(Usuario usuario);
         bool Alterar(Usuario usuario);
-        //Image CapthFoto(int id);
         Usuario Select_User_Info(int id);
         bool TryParse_CPF_Telefone(string cpf, string telefone);
 

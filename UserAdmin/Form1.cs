@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using UserAdmin.UserAdmin.BLL.Interfaces;
 using UserAdmin.UserAdmin.BLL.Service;
 using UserAdmin.UserAdmin.DAO.Entities;
@@ -36,7 +37,9 @@ namespace UserAdmin
             usuario.Cpf = txtCpf.Text;
             usuario.Email = txtEmail.Text;
             usuario.Telefone = txtTelefone.Text;
-            usuario.FotoUsuario = imagemByte;
+            MemoryStream memoryStream = new MemoryStream();
+            picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+            usuario.FotoUsuario = memoryStream.ToArray();
 
             return usuario;
 
@@ -87,14 +90,24 @@ namespace UserAdmin
         private void btnExaminar_Click(object sender, EventArgs e)
         {
             OpenFileDialog selecImagem = new OpenFileDialog();
+            selecImagem.Filter = "JPEG|*.JPG|PNG|*.png";
             selecImagem.Title = "Selecionar Imagem";
 
             if (selecImagem.ShowDialog() == DialogResult.OK)
             {
+                var path = selecImagem.FileName;
+                FileInfo fileInfo = new FileInfo(path);
+                var extension = fileInfo.Extension;
                 picFoto.Image = Image.FromStream(selecImagem.OpenFile());
                 MemoryStream memoryStream = new MemoryStream();
-                picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-
+                if (extension.Equals(".png"))
+                {
+                    picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                }
+                else
+                {
+                    picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
                 imagemByte = memoryStream.ToArray();
             }
         }
@@ -141,6 +154,7 @@ namespace UserAdmin
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            atualizarGrid();
             ClearInputs();
         }
 
@@ -156,6 +170,9 @@ namespace UserAdmin
                 txtTelefone.Text = usuario.Telefone;
                 txtCpf.Text = usuario.Cpf;
                 txtEmail.Text = usuario.Email;
+                MemoryStream memoryStream = new MemoryStream(usuario.FotoUsuario);
+                Image image = Image.FromStream(memoryStream);
+                picFoto.Image = image;
             }
         }
 
@@ -163,22 +180,26 @@ namespace UserAdmin
         {
             int indice = e.RowIndex;
             dgvUsuario.ClearSelection();
-            if (indice >= 0)
-            {
-                txtIdListar.Text = dgvUsuario.Rows[indice].Cells[0].Value.ToString();
-                //picFoto.Image = _userService.CapthFoto(int.Parse(dgvUsuario.Rows[indice].Cells[0].Value.ToString()));
-                txtNome.Text = dgvUsuario.Rows[indice].Cells[1].Value.ToString();
-                txtEmail.Text = dgvUsuario.Rows[indice].Cells[2].Value.ToString();
-                txtCpf.Text = dgvUsuario.Rows[indice].Cells[3].Value.ToString();
-                txtTelefone.Text = dgvUsuario.Rows[indice].Cells[4].Value.ToString();
 
-                btnCadastrar.Enabled = false;
-                btnAlterar.Enabled = true;
-                btnDeletar.Enabled = true;
-                btnCancelar.Enabled = true;
-            }
+            txtIdListar.Text = dgvUsuario.Rows[indice].Cells[0].Value.ToString();
+            var idSelecionar = int.Parse(dgvUsuario.Rows[indice].Cells[0].Value.ToString());
+
+            var usuario = _userService.Select_User_Info(idSelecionar);
+            txtNome.Text = usuario.Nome;
+            txtTelefone.Text = usuario.Telefone;
+            txtCpf.Text = usuario.Cpf;
+            txtEmail.Text = usuario.Email;
+            MemoryStream memoryStream = new MemoryStream(usuario.FotoUsuario);
+            Image image = Image.FromStream(memoryStream);
+            picFoto.Image = image;
+
+            btnCadastrar.Enabled = false;
+            btnAlterar.Enabled = true;
+            btnDeletar.Enabled = true;
+            btnCancelar.Enabled = true;
+
         }
 
-        
+
     }
 }

@@ -63,14 +63,13 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             command.Connection = ConnectionDb();
             connection.Open();
             SqlDataReader reader = command.ExecuteReader();
-            List<string> list = new List<string>();
             while (reader.Read())
             {
                 usuario.Nome = reader.GetString(1);
                 usuario.Email = reader.GetString(2);
                 usuario.Cpf = reader.GetString(3);
                 usuario.Telefone = reader.GetString(4);
-                //usuario.FotoUsuario = reader.GetString(4);
+                usuario.FotoUsuario = (byte[])reader["foto"];
             }
             connection.Close();
             return usuario;
@@ -99,7 +98,7 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             connection.Close();
             return true;
         }
-       
+
         public byte[] Select_Foto_Users(SqlCommand command)
         {
             command.Connection = ConnectionDb();
@@ -153,7 +152,7 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             connection.Close();
             return true;
         }
-       
+
 
     }
 }

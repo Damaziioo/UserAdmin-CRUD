@@ -35,6 +35,7 @@
             this.txtIdListar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabCadastrar = new System.Windows.Forms.TabPage();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -74,7 +75,7 @@
             this.tabListar.Controls.Add(this.label1);
             this.tabListar.Location = new System.Drawing.Point(4, 24);
             this.tabListar.Name = "tabListar";
-            this.tabListar.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabListar.Padding = new System.Windows.Forms.Padding(3);
             this.tabListar.Size = new System.Drawing.Size(768, 398);
             this.tabListar.TabIndex = 0;
             this.tabListar.Text = "Listar";
@@ -121,6 +122,7 @@
             // 
             // tabCadastrar
             // 
+            this.tabCadastrar.Controls.Add(this.maskedTextBox1);
             this.tabCadastrar.Controls.Add(this.btnDeletar);
             this.tabCadastrar.Controls.Add(this.btnAlterar);
             this.tabCadastrar.Controls.Add(this.btnCancelar);
@@ -137,11 +139,20 @@
             this.tabCadastrar.Controls.Add(this.picFoto);
             this.tabCadastrar.Location = new System.Drawing.Point(4, 24);
             this.tabCadastrar.Name = "tabCadastrar";
-            this.tabCadastrar.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCadastrar.Padding = new System.Windows.Forms.Padding(3);
             this.tabCadastrar.Size = new System.Drawing.Size(768, 398);
             this.tabCadastrar.TabIndex = 1;
             this.tabCadastrar.Text = "Cadastrar/Alterar";
             this.tabCadastrar.UseVisualStyleBackColor = true;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Culture = new System.Globalization.CultureInfo("en-001");
+            this.maskedTextBox1.Location = new System.Drawing.Point(300, 327);
+            this.maskedTextBox1.Mask = "000.000.000-00";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(176, 23);
+            this.maskedTextBox1.TabIndex = 17;
             // 
             // btnDeletar
             // 
@@ -262,6 +273,7 @@
             this.picFoto.Location = new System.Drawing.Point(29, 31);
             this.picFoto.Name = "picFoto";
             this.picFoto.Size = new System.Drawing.Size(164, 188);
+            this.picFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picFoto.TabIndex = 0;
             this.picFoto.TabStop = false;
             // 
@@ -307,5 +319,6 @@
         private Button btnCancelar;
         private Button btnDeletar;
         private Button btnAlterar;
+        private MaskedTextBox maskedTextBox1;
     }
 }
