@@ -182,13 +182,13 @@ namespace UserAdmin.UserAdmin.BLL.Service
             long number;
             if (!long.TryParse(cpf, out number))
             {
-                MessageBox.Show("O CPF teve conter apaenas números!");
+                MessageBox.Show("O CPF teve conter apenas números!");
                 return false;
             }
 
             if (!long.TryParse(telefone, out number))
             {
-                MessageBox.Show("O Telefone teve conter apaenas números!");
+                MessageBox.Show("O Telefone teve conter apenas números!");
                 return false;
             }
             return true;

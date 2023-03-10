@@ -21,9 +21,9 @@ namespace UserAdmin
         {
             var usuario = new Usuario();
             usuario.Nome = txtNome.Text;
-            usuario.Cpf = txtCpf.Text;
+            usuario.Cpf = mkdTextCPF.Text;
             usuario.Email = txtEmail.Text;
-            usuario.Telefone = txtTelefone.Text;
+            usuario.Telefone = mkdTxTelefone.Text;
             usuario.FotoUsuario = imagemByte;
 
             return usuario;
@@ -34,9 +34,9 @@ namespace UserAdmin
             var usuario = new Usuario();
             usuario.Id = int.Parse(txtIdListar.Text);
             usuario.Nome = txtNome.Text;
-            usuario.Cpf = txtCpf.Text;
+            usuario.Cpf = mkdTextCPF.Text;
             usuario.Email = txtEmail.Text;
-            usuario.Telefone = txtTelefone.Text;
+            usuario.Telefone = mkdTxTelefone.Text;
             MemoryStream memoryStream = new MemoryStream();
             picFoto.Image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
             usuario.FotoUsuario = memoryStream.ToArray();
@@ -59,8 +59,8 @@ namespace UserAdmin
         {
             txtNome.Text = null;
             txtEmail.Text = null;
-            txtCpf.Text = null;
-            txtTelefone.Text = null;
+            mkdTextCPF.Text = null;
+            mkdTxTelefone.Text = null;
             picFoto.Image = Image.FromFile(@"C:\Users\lucas\source\repos\UserAdmin\UserAdmin\Images\imagemDefaultJPG.jpg");
 
             btnCadastrar.Enabled = true;
@@ -71,7 +71,7 @@ namespace UserAdmin
 
         public bool ValidationNullCreate()
         {
-            if (txtNome.Text == "" || txtCpf.Text == "" || txtEmail.Text == "" || txtTelefone.Text == "")
+            if (txtNome.Text == "" || mkdTextCPF.Text == "" || txtEmail.Text == "" || mkdTxTelefone.Text == "")
             {
                 MessageBox.Show("Possue campos em branco, insira os dados da forma correta!");
                 return false;
@@ -80,7 +80,7 @@ namespace UserAdmin
         }
         public bool ValidationNull_Delete_Alterar()
         {
-            if (txtNome.Text == "" || txtCpf.Text == "" || txtEmail.Text == "" || txtTelefone.Text == "" || txtIdListar.Text == "")
+            if (txtNome.Text == "" || mkdTextCPF.Text == "" || txtEmail.Text == "" || mkdTxTelefone.Text == "" || txtIdListar.Text == "")
             {
                 MessageBox.Show("Possue campos em branco, insira os dados da forma correta!");
                 return false;
@@ -167,8 +167,8 @@ namespace UserAdmin
 
                 var usuario = _userService.Select_User_Info(idSelecionar);
                 txtNome.Text = usuario.Nome;
-                txtTelefone.Text = usuario.Telefone;
-                txtCpf.Text = usuario.Cpf;
+                mkdTxTelefone.Text = usuario.Telefone;
+                mkdTextCPF.Text = usuario.Cpf;
                 txtEmail.Text = usuario.Email;
                 MemoryStream memoryStream = new MemoryStream(usuario.FotoUsuario);
                 Image image = Image.FromStream(memoryStream);
@@ -186,8 +186,8 @@ namespace UserAdmin
 
             var usuario = _userService.Select_User_Info(idSelecionar);
             txtNome.Text = usuario.Nome;
-            txtTelefone.Text = usuario.Telefone;
-            txtCpf.Text = usuario.Cpf;
+            mkdTxTelefone.Text = usuario.Telefone;
+            mkdTextCPF.Text = usuario.Cpf;
             txtEmail.Text = usuario.Email;
             MemoryStream memoryStream = new MemoryStream(usuario.FotoUsuario);
             Image image = Image.FromStream(memoryStream);
