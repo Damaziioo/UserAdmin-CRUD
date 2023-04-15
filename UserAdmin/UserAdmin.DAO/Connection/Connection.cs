@@ -98,7 +98,6 @@ namespace UserAdmin.UserAdmin.DAO.Connection
             connection.Close();
             return true;
         }
-
         public byte[] Select_Foto_Users(SqlCommand command)
         {
             command.Connection = ConnectionDb();

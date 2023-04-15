@@ -36,7 +36,6 @@
             this.txtIdListar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabCadastrar = new System.Windows.Forms.TabPage();
-            this.mkdTextCPF = new System.Windows.Forms.MaskedTextBox();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -49,7 +48,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.picFoto = new System.Windows.Forms.PictureBox();
-            this.mkdTxTelefone = new System.Windows.Forms.MaskedTextBox();
+            this.txtCpf = new System.Windows.Forms.TextBox();
+            this.txtTelefone = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabListar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuario)).BeginInit();
@@ -122,8 +122,8 @@
             // 
             // tabCadastrar
             // 
-            this.tabCadastrar.Controls.Add(this.mkdTxTelefone);
-            this.tabCadastrar.Controls.Add(this.mkdTextCPF);
+            this.tabCadastrar.Controls.Add(this.txtTelefone);
+            this.tabCadastrar.Controls.Add(this.txtCpf);
             this.tabCadastrar.Controls.Add(this.btnDeletar);
             this.tabCadastrar.Controls.Add(this.btnAlterar);
             this.tabCadastrar.Controls.Add(this.btnCancelar);
@@ -143,15 +143,6 @@
             this.tabCadastrar.TabIndex = 1;
             this.tabCadastrar.Text = "Cadastrar/Alterar";
             this.tabCadastrar.UseVisualStyleBackColor = true;
-            // 
-            // mkdTextCPF
-            // 
-            this.mkdTextCPF.Culture = new System.Globalization.CultureInfo("en-001");
-            this.mkdTextCPF.Location = new System.Drawing.Point(281, 109);
-            this.mkdTextCPF.Mask = "000.000.000-00";
-            this.mkdTextCPF.Name = "mkdTextCPF";
-            this.mkdTextCPF.Size = new System.Drawing.Size(176, 23);
-            this.mkdTextCPF.TabIndex = 17;
             // 
             // btnDeletar
             // 
@@ -264,13 +255,19 @@
             this.picFoto.TabStop = false;
             this.picFoto.Click += new System.EventHandler(this.picFoto_Click);
             // 
-            // mkdTxTelefone
+            // txtCpf
             // 
-            this.mkdTxTelefone.Location = new System.Drawing.Point(469, 109);
-            this.mkdTxTelefone.Mask = "( 00 ) 0 0000-0000";
-            this.mkdTxTelefone.Name = "mkdTxTelefone";
-            this.mkdTxTelefone.Size = new System.Drawing.Size(180, 23);
-            this.mkdTxTelefone.TabIndex = 18;
+            this.txtCpf.Location = new System.Drawing.Point(281, 109);
+            this.txtCpf.Name = "txtCpf";
+            this.txtCpf.Size = new System.Drawing.Size(173, 23);
+            this.txtCpf.TabIndex = 19;
+            // 
+            // txtTelefone
+            // 
+            this.txtTelefone.Location = new System.Drawing.Point(469, 109);
+            this.txtTelefone.Name = "txtTelefone";
+            this.txtTelefone.Size = new System.Drawing.Size(182, 23);
+            this.txtTelefone.TabIndex = 20;
             // 
             // Form1
             // 
@@ -312,7 +309,7 @@
         private Button btnCancelar;
         private Button btnDeletar;
         private Button btnAlterar;
-        private MaskedTextBox mkdTextCPF;
-        private MaskedTextBox mkdTxTelefone;
+        private TextBox txtCpf;
+        private TextBox txtTelefone;
     }
 }

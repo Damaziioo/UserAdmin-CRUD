@@ -74,20 +74,6 @@ namespace UserAdmin.UserAdmin.BLL.Service
 
             return usuario;
         }
-        //Nao estou conseguindo pegar do banco a imagem esta dando um erro de stream.
-        /* public Image CapthFoto(int id)
-            {
-                SqlCommand sqlCommand = new SqlCommand("SELECT foto FROM UsersCrud WHERE id = @id");
-                sqlCommand.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                var imagemByte= connection.Select_Foto_Users(sqlCommand);
-                using (MemoryStream ms = new MemoryStream(imagemByte))
-                {
-                        var final = Image.FromStream(ms);
-                    return final;
-
-                }
-
-            }*/
         public bool ValidationCPF(Usuario usuario)
         {
 
