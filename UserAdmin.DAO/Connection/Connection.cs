@@ -6,7 +6,7 @@ namespace UserAdmin.DAO.Connection
     public class Connection
     {
 
-        private string connectionString = "Data Source=DAMAZIO\\SQLEXPRESS; Initial Catalog=dbAdminUser; Integrated Security=True";
+        private string connectionString = "Data Source=----\\SQLEXPRESS; Initial Catalog=dbAdminUser; Integrated Security=True";
         SqlConnection connection;
 
         public SqlConnection ConnectionDb()
